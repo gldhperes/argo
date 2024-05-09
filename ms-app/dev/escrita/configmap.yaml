@@ -1,0 +1,12 @@
+# dev/escrita/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: escrita-config-dev
+  namespace: dev
+
+data:
+  APP_NAME: "dev-app-escrita"
+  RABBITMQ_QUEUE: "dev-messages"
+  TIMER: "1"

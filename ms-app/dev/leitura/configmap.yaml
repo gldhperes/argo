@@ -1,0 +1,9 @@
+#dev/leitura/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: leitura-config-dev
+  namespace: dev
+data:
+  RABBITMQ_PREFETCH: "1"
+  RABBITMQ_QUEUE: "dev-messages"

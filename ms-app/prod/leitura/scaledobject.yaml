@@ -1,0 +1,24 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: rabbitmq-consumer
+  namespace: prod
+spec:
+  scaleTargetRef:
+    name: leitura-prod
+
+  minReplicaCount: 0
+  maxReplicaCount: 3
+
+  triggers:
+  - type: rabbitmq
+
+    metadata:
+      protocol: http # Optional. Specifies protocol to use, either amqp or http, or auto to autodetect based on the `host` value. Default value is auto.
+      queueName: "prod-messages"
+    
+      mode: QueueLength # QueueLength or MessageRate
+      value: "5" # message backlog or publish/sec. target per instance
+
+    authenticationRef:
+      name: keda-trigger-auth-rabbitmq-conn

@@ -1,0 +1,11 @@
+# prod/leitura/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+
+metadata:
+  name: leitura-config-prod
+  namespace: prod
+
+data:
+  RABBITMQ_QUEUE: "prod-messages"
+  RABBITMQ_PREFETCH: "1"

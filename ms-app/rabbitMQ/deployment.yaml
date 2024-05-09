@@ -1,0 +1,70 @@
+# deployment-rabbitmq.yaml
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+
+metadata:
+  name: rmq
+  namespace: rmq
+  
+spec:
+
+  rabbitmq:
+    additionalConfig: |
+      log.file.level = debug
+      cluster_formation.k8s.host = kubernetes.default.example.local
+      default_user = user
+      default_pass = password
+      default_user_tags.administrator = true
+
+  replicas: 1
+  service:
+    type: LoadBalancer
+
+  # image: rabbitmq:latest
+
+  # persistence:
+  #   storageClassName: ssd
+  #   storage: "20Gi"
+          
+  # resources:
+  #   requests:
+  #     cpu: 4
+  #     memory: "8Gi"
+  #   limits:
+  #     cpu: 4
+  #     memory: "8Gi"
+
+
+
+
+
+
+
+
+
+
+
+
+
+### ANTIGO ###
+#   selector:
+#     matchLabels:
+#       app: rabbitmq
+#   template:
+#     metadata:
+#       labels:
+#         app: rabbitmq
+#     spec:
+#       containers:
+#         - name: rabbitmq-container
+#           image: rabbitmq:latest
+#           ports:
+#             - containerPort: 5672  # Porta para acesso ao RabbitMQ
+#             - containerPort: 15672 # Porta para acesso ao painel de controle do RabbitMQ
+#           env:
+#             - name: RABBITMQ_DEFAULT_USER
+#               value: "user"
+#             - name: RABBITMQ_DEFAULT_PASS
+#               value: "password"
+#             - name: RABBIT_PORT
+#               value: "5672"

@@ -1,0 +1,15 @@
+# dev/kustomization.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: dev
+
+resources:
+- ../base
+
+- escrita/configmap.yaml
+- escrita/deployment.yaml
+
+- leitura/configmap.yaml
+- leitura/deployment.yaml
+- leitura/scaledobject.yaml

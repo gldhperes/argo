@@ -1,0 +1,21 @@
+name: Bandit (Security Test)
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8"]
+
+    steps:
+      - uses: mdegis/bandit-action@v1.0
+      - name: Analysing the code with Bandit
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          path: "."
+          level: high
+          confidence: high
+          exit_zero: true

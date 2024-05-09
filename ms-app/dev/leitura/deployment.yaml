@@ -1,0 +1,52 @@
+#dev/leitura/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: leitura-dev
+  namespace: dev
+  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: leitura-dev
+  template:
+    metadata:
+      labels:
+        app: leitura-dev
+    spec:
+      containers:
+        - name: leitura-dev
+          image: guilhermeperes/ms-leitura:latest
+          env:
+          # ConfigMap
+          - name: RABBITMQ_PREFETCH
+            valueFrom:
+              configMapKeyRef:
+                name: leitura-config-dev
+                key: RABBITMQ_PREFETCH
+          - name: RABBITMQ_QUEUE
+            valueFrom:
+              configMapKeyRef:
+                name: leitura-config-dev
+                key: RABBITMQ_QUEUE
+          # Secrets
+          - name: RABBITMQ_URL
+            valueFrom:
+              secretKeyRef:
+                name: conn-secret
+                key: RABBITMQ_URL
+          - name: RABBITMQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: conn-secret
+                key: RABBITMQ_USERNAME
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: conn-secret
+                key: RABBITMQ_PASSWORD
+       
+
+                

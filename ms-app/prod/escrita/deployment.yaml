@@ -1,0 +1,58 @@
+# prod/escrita/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: escrita-prod
+  namespace: prod
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: escrita-prod
+  template:
+    metadata:
+      labels:
+        app: escrita-prod
+    spec:
+      containers:
+        - name: escrita-prod
+          image: guilhermeperes/ms-escrita:latest
+          env:
+          # ConfigMap
+          - name: APP_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: escrita-config-prod
+                key: APP_NAME
+          - name: RABBITMQ_QUEUE
+            valueFrom:
+              configMapKeyRef:
+                name: escrita-config-prod
+                key: RABBITMQ_QUEUE
+          - name: TIMER
+            valueFrom:
+              configMapKeyRef:
+                name: escrita-config-prod
+                key: TIMER
+          # Secrets
+          - name: RABBITMQ_URL
+            valueFrom:
+              secretKeyRef:
+                name: conn-secret
+                key: RABBITMQ_URL
+          - name: RABBITMQ_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: conn-secret
+                key: RABBITMQ_USERNAME
+          - name: RABBITMQ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: conn-secret
+                key: RABBITMQ_PASSWORD
+
+
+
+                
