@@ -6,10 +6,12 @@ resources:
 - secret.yaml
 - auth.yaml
 
+- ../dev/
 # - escrita/cronjob.yaml
 # - escrita/deployment.yaml
 # - escrita/service.yaml
 
+- ../prod/
 # - leitura/deployment.yaml
 # - leitura/scaledobject.yaml
 # - leitura/service.yaml

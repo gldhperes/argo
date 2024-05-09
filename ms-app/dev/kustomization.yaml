@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: dev
 
 resources:
-- ../base
+# - ../base
 
 - escrita/configmap.yaml
 - escrita/deployment.yaml
